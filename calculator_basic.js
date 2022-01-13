@@ -43,6 +43,7 @@ const dividerge = (arr) => {
         {
             arr[i-1]/=arr[i+1];
             arr.splice(i,2);
+            i=0;
         }
     }
     return arr;
@@ -58,6 +59,7 @@ const multurge = (arr) => {
         {
             arr[i-1]*=arr[i+1];
             arr.splice(i,2);
+            i=0;
         }
     }
     return arr;
@@ -73,6 +75,7 @@ const suburge = (arr) => {
         {
             arr[i-1]-=arr[i+1];
             arr.splice(i,2);
+            i=0;
         }
     }
     return arr;
@@ -88,6 +91,7 @@ const addurge = (arr) => {
         {
             arr[i-1]+=arr[i+1];
             arr.splice(i,2);
+            i=0;
         }
     }
     return arr;
@@ -101,7 +105,31 @@ const dec_tell = (flt) => {
         }
     }
     return 8;
-}
+};
+const point_check = (str) => {
+    let p_check=false;
+    let op_check=false;
+    for(let i=str.length-1;i>=0;i--)
+    {
+        if(str[i]==".")
+        {
+            p_check=true;
+            if(!op_check)
+            {
+                return p_check;
+            }
+        }
+        if(inside(str[i],arops))
+        {
+            op_check=true;
+            if(!p_check)
+            {
+                return p_check;
+            }
+        }
+    }
+    return p_check;
+};
 let col = "+";
 let acc = 0;
 for (let i = 0; i < button.length; i++) {
@@ -123,26 +151,55 @@ for (let i = 0; i < button.length; i++) {
                     }
                    
                 }
+                else if(feild[0].textContent[feild[0].textContent.length - 1]==".")
+                        {
+                            alert("Complete the decimal places.");
+                        }
                 else {
+                    let eqn = feild[0].textContent;
                     if (val == "=") {
-                        let eqn = feild[0].textContent;
                         let splitEq = numSplit(eqn);
                         splitEq = splitEq.map(render);
                         let ans = suburge(addurge(multurge(dividerge(splitEq))));
-                        feild[1].textContent=Number.isInteger(ans[0])?`${ans[0]}`:ans[0].toFixed(dec_tell(ans[0]));
-                        console.log(Number.isInteger(ans[0]));
+                        console.log(ans);
+                        ans=ans[0];
+                        feild[1].textContent=Number.isInteger(ans)?`${ans}`:ans.toFixed(dec_tell(ans));
                     }
                     appending();
                 }
             }
             else {
+                let eqn = feild[0].textContent;
                 if(feild[0].textContent[feild[0].textContent.length-1]=="=")
                 {
                     alert("Enter a new operation!");
                 }
                 else
                 {
-                    appending();
+                    if (val == ".")
+                    {
+                        console.log(`p_check=${point_check(eqn)}`);
+                        if(point_check(eqn))
+                        {
+                            alert("Two decimals can't be in a single number.");
+                        }
+                        else if(inside(feild[0].textContent[feild[0].textContent.length-1],arops))
+                        {
+                            alert("Can't place a decimal after operator");
+                        }
+                        else if(feild[0].textContent.length==0)
+                        {
+                            alert("Can't place decimal without integer part.");
+                        }
+                        else
+                        {
+                            appending();
+                        }
+                    }
+                    else
+                    {
+                        appending();
+                    }
                 }
             }
         }

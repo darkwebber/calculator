@@ -47,6 +47,6 @@ table {
 @media only screen and (max-width: 350px) {
     #in{font-size: large;}
     #out{font-size: x-large;}
-    #cbd{width: 80vw;}
-    td{height: 18vw;}
+    #cbd{width: 75vw;}
+    td{height: 16vw;}
   }

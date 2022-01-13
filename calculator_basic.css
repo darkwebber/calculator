@@ -1,7 +1,7 @@
 #cbd {
     padding: 2%;
     background-color: black;
-    width: 60vh;
+    width: 65vh;
 }
 
 td {
@@ -47,6 +47,6 @@ table {
 @media only screen and (max-width: 350px) {
     #in{font-size: large;}
     #out{font-size: x-large;}
-    #cbd{width: 75vw;}
+    #cbd{width: 70vw;}
     td{height: 16vw;}
   }

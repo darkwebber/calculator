@@ -92,6 +92,16 @@ const addurge = (arr) => {
     }
     return arr;
 };
+const dec_tell = (flt) => {
+    for(let i=1;i<9;i++)
+    {
+        if(Number.isInteger(Math.pow(10,i)*flt))
+        {
+            return i;
+        }
+    }
+    return 8;
+}
 let col = "+";
 let acc = 0;
 for (let i = 0; i < button.length; i++) {
@@ -119,7 +129,7 @@ for (let i = 0; i < button.length; i++) {
                         let splitEq = numSplit(eqn);
                         splitEq = splitEq.map(render);
                         let ans = suburge(addurge(multurge(dividerge(splitEq))));
-                        feild[1].textContent=Number.isInteger(ans[0])?`${ans[0]}`:ans[0].toFixed(8);
+                        feild[1].textContent=Number.isInteger(ans[0])?`${ans[0]}`:ans[0].toFixed(dec_tell(ans[0]));
                         console.log(Number.isInteger(ans[0]));
                     }
                     appending();
